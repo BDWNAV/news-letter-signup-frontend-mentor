@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    @font-face {
+      font-family: robotoRegular;
+      src: url("./assets//fonts/Roboto-Regular.ttf");
+    }
+
+    @font-face {
+      font-family: robotoBold;
+      src: url("./assets/fonts/Roboto-Bold.ttf");
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: hsl(234, 29%, 20%);
+      color: hsl(235, 18%, 26%);
+      font-family: robotoRegular;
+      font-size: 16px;
+    }
+
+    .starting-page {
+      width: 900px;
+      height: 600px;
+      background-color: hsl(0, 0%, 100%);
+      border-radius: 20px;
+      padding: 20px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+       /* change this */
+    }
+
+    .left-side {
+      align-self: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 40px;
+      gap: 10px;
+    }
+
+    .sign-up-img {
+      align-self: flex-end;
+      max-width: min-content;
+      max-height: max-content;
+      width: 45%;
+      height: 100%;
+    }
+
+    .title {
+      font-family: robotoBold;
+      font-size: 60px;
+      margin-top: 10px;
+      font-weight: 700;
+      height: 31px;
+      color: hsl(235, 18%, 26%);
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: row;
+      align-items: center;
+      font-size: 13px;
+      margin-top: -10px;
+    }
+    
+    .bullet-point {
+      margin-left: 10px;
+      font-weight: 400;
+    }
+
+    .email-data {
+      margin-top: 10px;
+      font-family: robotoBold;
+      font-size: 13px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 5px;
+    }
+
+    .email-data label {
+      font-size: 12px;
+    }
+
+    .input-text {
+      box-sizing: border-box;
+      width: 90%;
+      padding: 15px;
+      border-radius: 7px;
+      outline: none;
+      border: 1px solid hsl(231, 7%, 60%);
+    }
+
+    .success-button {
+      width: 90%;
+      font-family: robotoBold;
+      color: hsl(0, 0%, 100%);
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 7px;
+      background-color: hsl(234, 29%, 20%);;
+      border: 0px;
+      transition: background-color 0.7s ease;
+    }
+
+    .success-button:hover {
+      background-color: hsl(4, 100%, 67%);
+      box-shadow: 3px 5px 20px hsl(4, 100%, 67%)
+    }
+
+    .form-labels {
+      flex-basis: 90%;
+      position: relative;
+    }
+
+    .error-state-label {
+      position: absolute;
+      right: 0;
+      display: none;
+      color: hsl(4, 100%, 67%);
+    }
+
+    /* Success message page */
+
+    .success-message {
+      width: 400px;
+      height: 450px;
+      border-radius: 20px;
+      padding: 50px;
+      background-color: hsl(0, 0%, 100%);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      flex-direction: column;
+    }
+
+    .success-tick {
+      width: 50px;
+      height: 50px;
+    }
+
+    .thanks {
+      font-family: robotoBold;
+      font-size: 45px;
+      height: min-content;
+    }
+
+    .confirmation-message {
+      margin-top: -15px;
+    }
+
+    .dismiss-message {
+      font-family: robotoBold;
+      width: 100%;
+      color: hsl(0, 0%, 100%);
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 7px;
+      background-color: hsl(234, 29%, 20%);;
+      border: 0px;
+      transition: background-color 0.7s ease;
+    }
+
+    .dismiss-message:hover {
+      background-color: hsl(4, 100%, 67%);
+      box-shadow: 3px 5px 20px hsl(4, 100%, 67%);
+    }
+
+    /* Mobile styles */
+
+    .mobile-sign-up {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      body {
+        overflow: scroll;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      .starting-page {
+        overflow: scroll;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        padding: 0px;
+        gap: 20px;
+      }
+
+      .sign-up-img {
+        display: none;
+      }
+
+      .mobile-sign-up {
+        display: inline;
+        order: -1;
+        border-radius: 3px;
+        width: 100%;
+      }
+
+      .left-side {
+        padding: 15px;
+        align-content: center;
+        justify-content: stretch;
+        font-size: 25px;
+      }
+
+      .title {
+        font-size: 50px;
+      }
+
+      .list-item {
+        font-size: 19px;
+      }
+
+      .input-text, .success-button {
+        width: 100%
+      }
+      
+      /* Success responsive */
+
+      .success-message {
+        height: 100%;
+        width: 100%;
+        border-radius: 0px;
+        justify-content: flex-end;
+        flex-direction: column;
+      }
+
+      .mobile-page-div {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sign-up form start -->
+
+  <div id="starting-page" class="starting-page">
+    <div class="left-side">
+      <h1 class="title">Stay updated!</h1>
+
+      <p class="content">Join 60,000+ product managers receiving monthly updates on:</p>
+    
+      <div class="list-items">
+        <div class="list-item">
+          <img src="./assets/images/icon-list.svg" alt="checklist-logo">
+          <p class="bullet-point">Product discovery and building what matters</li>
+        </div>
+        <div class="list-item">
+          <img src="./assets/images/icon-list.svg" alt="checklist-logo">
+          <p class="bullet-point">Measuring to ensure updates are a success</li>
+        </div>
+        <div class="list-item">
+          <img src="./assets/images/icon-list.svg" alt="checklist-logo">
+          <p class="bullet-point">And much more!</li>
+        </div>
+      </div>
+    
+      <form name="email-data" class="email-data">
+        <div class="form-labels">
+          <label>Email address</label>
+          <label id="error-state" class="error-state-label">Valid email required</label>
+        </div>
+        <input id="error-state-input" name="email" class="input-text" type="text" placeholder="email@company.com" />
+        <button class="success-button">Subscribe to monthly newsletter</button>
+      </form>
+    </div>
+     
+    <img class="sign-up-img" src="./assets/images/illustration-sign-up-desktop.svg" alt="signup" />
+    <img class="mobile-sign-up" src="./assets/images/illustration-sign-up-mobile.svg" alt="mobile-signup">
+  </div>
+
+  <!-- Sign-up form end -->
+
+  <!-- Success message start -->
+
+  <div id="success-message" class="success-message">
+    <div class="mobile-page-div">
+      <img class="success-tick" alt="success-tick" src="./assets/images/icon-success.svg" />
+
+      <h1 class="thanks">Thanks for subscribing!</h1>
+  
+      <p class="confirmation-message" id="confirmation-message"></p>
+    </div>
+  
+    <button class="dismiss-message" onclick="returnToStart();">Dismiss message</button>
+  </div>
+  <!-- Success message end -->
+
+  <script>
+    const form = document.querySelector(".email-data");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const emailValue = document.forms["email-data"]["email"].value;
+
+      const emailRegex = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g);
+
+      if(emailRegex.test(emailValue)) {
+        document.getElementById("starting-page").style.display = "none";
+        document.getElementById("success-message").style.display = "flex";
+
+        document.getElementById("confirmation-message").innerHTML = "A confirmation email has been sent to " + "<b>" + emailValue + "</b>" + ". \n Please open it and click the button inside to confirm your subscription.";
+      } else {
+        document.getElementById("error-state").style.display = "inline-block";
+
+        const emailInput = document.getElementById("error-state-input");
+
+        emailInput.style.border = "1px solid hsl(4, 100%, 67%)";
+        emailInput.style.backgroundColor = "hsla(4, 100%, 67%, 0.3)";
+      }
+    });
+
+    function returnToStart() {
+      document.getElementById("success-message").style.display = "none";
+      document.getElementById("starting-page").style.display = "flex";
+    }
+  </script>
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>
